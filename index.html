@@ -44,14 +44,35 @@ $ git checkout gh-pages
           <input type='text' id='messageInput' placeholder='Message'>
 
 
+<script language="JavaScript" src="game.js">
+</script>
+
 <script>
     var myDataRef = new Firebase('https://crackling-torch-2249.firebaseio.com/active-list');
     $('#messageInput').keypress(function (e) {
         if (e.keyCode == 13) {
             var name = $('#nameInput').val();
             var text = $('#messageInput').val();
-            myDataRef.push({ name: name, text: text });
+            myDataRef.set({ name: name, text: text });
           $('#messageInput').val('');
+        }
+    });
+</script>
+
+
+<script>
+    $.ajax({
+        url: "http://173.37.40.112/api/config/v1/maps/count",
+        type: "GET",
+        headers: { "Authorization": "Basic dWNzYmhhY2sxOnVjc2JoYWNrMQ==" },
+        contentType: "application/json", data: JSON.stringify({
+
+        }),
+        success: function (data, textStatus, jqXHR) {
+            console.log("HTTP Request Succeeded: " + jqXHR.status); console.log(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("HTTP Request Failed");
         }
     });
 </script>
